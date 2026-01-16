@@ -1,34 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useState } from 'react'
+import { CapturePage } from './pages/CapturePage'
+import { HomePage } from './pages/HomePage'
+import { ProcessingPage } from './pages/ProcessingPage'
+import { ResultPage } from './pages/ResultPage'
+import { WelcomePage } from './pages/WelcomePage'
+import { useValidationFlow } from './hooks/useValidationFlow'
+import { captureOrder } from './constants'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const {
+    step,
+    setStep,
+    userId,
+    setUserId,
+    email,
+    setEmail,
+    currentKind,
+    currentIndex,
+    captures,
+    apiState,
+    response,
+    approved,
+    onCaptured,
+    goNextCapture,
+    startValidation,
+    resetFlow,
+  } = useValidationFlow()
+
+  const [showOcr, setShowOcr] = useState(false)
+
+  const views: Record<typeof step, React.ReactNode> = {
+    welcome: (
+      <WelcomePage
+        userId={userId}
+        email={email}
+        onChangeUserId={setUserId}
+        onChangeEmail={setEmail}
+        onStart={() => setStep('capture')}
+      />
+    ),
+    capture: (
+      <CapturePage
+        currentKind={currentKind}
+        currentIndex={currentIndex}
+        captures={captures}
+        onCaptured={onCaptured}
+        onNext={() =>
+          currentIndex === captureOrder.length - 1 ? startValidation() : goNextCapture()
+        }
+        onReset={resetFlow}
+        error={apiState.error}
+      />
+    ),
+    processing: <ProcessingPage />,
+    result: (
+      <ResultPage
+        response={response}
+        approved={approved}
+        error={apiState.error}
+        onRetry={() => setStep('capture')}
+        onBack={resetFlow}
+        onGoHome={() => setStep('home')}
+        showOcr={showOcr}
+        onToggleOcr={() => setShowOcr((s) => !s)}
+      />
+    ),
+    home: response ? (
+      <HomePage userId={userId} email={email} response={response} onReset={resetFlow} />
+    ) : null,
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="page">
+      <header className="topbar">
+        <div>
+          <p className="eyebrow">Prueba Técnica Front-End · MUBIS</p>
+          <h1>Validación de identidad – Cédula Colombia</h1>
+        </div>
+        <div className="badge">React + TypeScript + Vite</div>
+      </header>
+
+      <main className="content">{views[step]}</main>
+    </div>
   )
 }
 
