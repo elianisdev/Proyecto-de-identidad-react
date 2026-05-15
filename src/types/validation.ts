@@ -73,4 +73,6 @@ export type ApiResponse = {
   }
 }
 
-export type Step = 'welcome' | 'capture' | 'processing' | 'result' | 'home'
+export type Step = 'welcome' | 'capture' | 'processing' | 'result' | 'home' | 'profile'
+
+export type SimulateOutcome = 'approved' | 'rejected'

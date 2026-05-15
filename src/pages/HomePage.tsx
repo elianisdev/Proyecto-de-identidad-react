@@ -5,9 +5,10 @@ type Props = {
   email: string
   response: ApiResponse
   onReset: () => void
+  onGoToProfile: () => void
 }
 
-export const HomePage = ({ userId, email, response, onReset }: Props) => (
+export const HomePage = ({ userId, email, response, onReset, onGoToProfile }: Props) => (
   <section className="card home">
     <p className="eyebrow">Home post-validación</p>
     <h2>Bienvenido, tu identidad fue validada correctamente</h2>
@@ -56,7 +57,7 @@ export const HomePage = ({ userId, email, response, onReset }: Props) => (
     </div>
 
     <div className="actions">
-      <button className="primary" type="button">
+      <button className="primary" type="button" onClick={onGoToProfile}>
         Ir a mi perfil
       </button>
       <button type="button" onClick={onReset}>

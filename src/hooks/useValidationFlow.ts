@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { captureOrder, DEFAULT_EMAIL, DEFAULT_USER_ID } from '../constants'
 import { validateIdentity } from '../services/validationApi'
-import type { ApiResponse, CaptureKind, CapturedImage, Step } from '../types/validation'
+import type {
+  ApiResponse,
+  CaptureKind,
+  CapturedImage,
+  SimulateOutcome,
+  Step,
+} from '../types/validation'
 
 type CapturesState = Record<CaptureKind, CapturedImage | null>
 
@@ -9,6 +15,7 @@ export const useValidationFlow = () => {
   const [step, setStep] = useState<Step>('welcome')
   const [userId, setUserId] = useState(DEFAULT_USER_ID)
   const [email, setEmail] = useState(DEFAULT_EMAIL)
+  const [simulateOutcome, setSimulateOutcome] = useState<SimulateOutcome>('approved')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [captures, setCaptures] = useState<CapturesState>({
     frente: null,
@@ -52,7 +59,7 @@ export const useValidationFlow = () => {
         reverso: captures.reverso!,
         selfie: captures.selfie!,
       }
-      const json = await validateIdentity(userId, payload)
+      const json = await validateIdentity(userId, payload, simulateOutcome)
       setResponse(json)
       setStep('result')
     } catch (error) {
@@ -63,7 +70,7 @@ export const useValidationFlow = () => {
     } finally {
       setApiState((prev) => ({ ...prev, loading: false }))
     }
-  }, [captures, userId])
+  }, [captures, simulateOutcome, userId])
 
   const goNextCapture = useCallback(() => {
     if (currentIndex < captureOrder.length - 1) {
@@ -90,6 +97,8 @@ export const useValidationFlow = () => {
     setUserId,
     email,
     setEmail,
+    simulateOutcome,
+    setSimulateOutcome,
     currentKind,
     currentIndex,
     captures,

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { CapturePage } from './pages/CapturePage'
 import { HomePage } from './pages/HomePage'
 import { ProcessingPage } from './pages/ProcessingPage'
+import { ProfilePage } from './pages/ProfilePage'
 import { ResultPage } from './pages/ResultPage'
 import { WelcomePage } from './pages/WelcomePage'
 import { useValidationFlow } from './hooks/useValidationFlow'
@@ -16,6 +17,8 @@ export const App = () => {
     setUserId,
     email,
     setEmail,
+    simulateOutcome,
+    setSimulateOutcome,
     currentKind,
     currentIndex,
     captures,
@@ -35,8 +38,10 @@ export const App = () => {
       <WelcomePage
         userId={userId}
         email={email}
+        simulateOutcome={simulateOutcome}
         onChangeUserId={setUserId}
         onChangeEmail={setEmail}
+        onChangeSimulateOutcome={setSimulateOutcome}
         onStart={() => setStep('capture')}
       />
     ),
@@ -67,7 +72,22 @@ export const App = () => {
       />
     ),
     home: response ? (
-      <HomePage userId={userId} email={email} response={response} onReset={resetFlow} />
+      <HomePage
+        userId={userId}
+        email={email}
+        response={response}
+        onReset={resetFlow}
+        onGoToProfile={() => setStep('profile')}
+      />
+    ) : null,
+    profile: response ? (
+      <ProfilePage
+        userId={userId}
+        email={email}
+        response={response}
+        onBack={() => setStep('home')}
+        onReset={resetFlow}
+      />
     ) : null,
   }
 
@@ -75,7 +95,7 @@ export const App = () => {
     <div className="page">
       <header className="topbar">
         <div>
-          <p className="eyebrow">Prueba Técnica Front-End · MUBIS</p>
+          <p className="eyebrow">Proyecto de identidad curso react Front-End</p>
           <h1>Validación de identidad – Cédula Colombia</h1>
         </div>
         <div className="badge">React + TypeScript + Vite</div>

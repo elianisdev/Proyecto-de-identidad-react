@@ -40,9 +40,14 @@ export const useCamera = (facingMode: 'user' | 'environment', fileName: string) 
       streamRef.current = stream
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        await videoRef.current.play()
+        try {
+          await videoRef.current.play()
+        } catch (playErr) {
+          if ((playErr as DOMException)?.name !== 'AbortError') throw playErr
+        }
       }
     } catch (err) {
+      if ((err as DOMException)?.name === 'AbortError') return
       setError('No pudimos acceder a tu cámara. Verifica permisos.')
     } finally {
       setIsStarting(false)

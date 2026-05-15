@@ -1,12 +1,24 @@
+import type { SimulateOutcome } from '../types/validation'
+
 type Props = {
   userId: string
   email: string
+  simulateOutcome: SimulateOutcome
   onChangeUserId: (value: string) => void
   onChangeEmail: (value: string) => void
+  onChangeSimulateOutcome: (value: SimulateOutcome) => void
   onStart: () => void
 }
 
-export const WelcomePage = ({ userId, email, onChangeUserId, onChangeEmail, onStart }: Props) => {
+export const WelcomePage = ({
+  userId,
+  email,
+  simulateOutcome,
+  onChangeUserId,
+  onChangeEmail,
+  onChangeSimulateOutcome,
+  onStart,
+}: Props) => {
   return (
     <section className="card hero">
       <div className="hero__info">
@@ -33,9 +45,19 @@ export const WelcomePage = ({ userId, email, onChangeUserId, onChangeEmail, onSt
               placeholder="correo@ejemplo.com"
             />
           </label>
+          <label>
+            Resultado simulado
+            <select
+              value={simulateOutcome}
+              onChange={(e) => onChangeSimulateOutcome(e.target.value as SimulateOutcome)}
+            >
+              <option value="approved">Aprobado</option>
+              <option value="rejected">Rechazado</option>
+            </select>
+          </label>
         </div>
         <div className="privacy-box">
-          <strong>Aviso de privacidad – Prueba técnica</strong>
+          <strong>Aviso de privacidad – Proyecto de identidad curso react</strong>
           <p>
             Los datos e imágenes se usan solo para evaluación. No se almacenan ni se comparten y se
             envían únicamente al servicio de validación de la prueba.
