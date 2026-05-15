@@ -4,11 +4,14 @@ Validación de identidad (Cédula Colombia) con captura en vivo, upload real al 
 
 ## Integrante del proyecto
 
-Eliana Suancha Guzmán — Desarrolladora Frontend - elianitasuanguz@gmail.com
+- **Nombre**: Eliana Suancha Guzmán
+- **Rol**: Desarrolladora Frontend
+- **Correo de inscripción al curso**: elianitasuanguz@gmail.com
+- **Código de participante**: No aplica
 
 > [!IMPORTANT]
-> * **Solicito** el certificado virtual, no en fisico
-> * **Necesitamos credito** No
+> * **Solicito** el certificado virtual, no en físico
+> * **Necesitamos crédito** No
 > * **Primera vez** viendo la materia
 
 ## Datos provistos
