@@ -60,7 +60,7 @@ export const WelcomePage = ({
           <strong>Aviso de privacidad – Proyecto de identidad curso react</strong>
           <p>
             Los datos e imágenes se usan solo para evaluación. No se almacenan ni se comparten y se
-            envían únicamente al servicio de validación de la prueba.
+            envían únicamente al servicio de validación.
           </p>
         </div>
         <div className="actions">

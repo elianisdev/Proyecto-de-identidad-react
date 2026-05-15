@@ -1,6 +1,6 @@
 #Proyecto de Validación de Identidad con Captura en Vivo frontend 
 
-Validación de identidad (Cédula Colombia) con captura en vivo, consumo del endpoint real y flujo aprobado/rechazado.
+Validación de identidad (Cédula Colombia) con captura en vivo, upload real al endpoint de eco (httpbin) y veredicto aprobado/rechazado simulado en cliente.
 
 ## Integrante del proyecto
 
@@ -14,7 +14,7 @@ Eliana Suancha Guzmán — Desarrolladora Frontend - elianitasuanguz@gmail.com
 ## Datos provistos
 
 - user_id: `USR-SELLER-0289D5DC`
-- email (referencia): `elianitasuanguz@gmail.com`
+- email (referencia): `user@example.com`
 
 ## Requisitos previos
 
@@ -69,6 +69,4 @@ Eliana Suancha Guzmán — Desarrolladora Frontend - elianitasuanguz@gmail.com
 3. Captura frente → reverso → selfie.
 4. Observa el resultado (aprobado/rechazado) y navega al Home si es aprobado.
 
-## Integrante del proyecto
 
-Eliana Suancha Guzmán — Desarrolladora Frontend
